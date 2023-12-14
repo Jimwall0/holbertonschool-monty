@@ -29,12 +29,13 @@ int main(int argc, char **argv)
       documentCopy[number] = malloc(sizeof(char) * strlen(line) + 1);
       if (documentCopy[number] == NULL)
 	{
-	  printf("Error Malloc documentCopy\n");
+	  printf("Failure\n");
 	  free(documentCopy[number]);
+	  free(documentCopy);
 	  exit(1);
 	}
       documentCopy[number] = line;
-      documentCopy[number + 1] = NULL;
+      documentCopy[number] = strtok(line, "\n ");
       printf("%s\n", documentCopy[number]);
       number++;
     }
