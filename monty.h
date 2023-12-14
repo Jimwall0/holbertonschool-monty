@@ -2,6 +2,7 @@
 #define MONTY_H
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -34,6 +35,7 @@ void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 int main(int argc, char **argv);
+char *cpline(char *string, char *delimiter);
 
 
 #endif

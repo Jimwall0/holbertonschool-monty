@@ -8,8 +8,9 @@
 int main(int argc, char **argv)
 {
   FILE *document;
-  char *line = NULL;
-  size_t size_max = 32, characters;
+  char *line = NULL, **documentCopy = malloc(sizeof(char *));
+  size_t size_max = 32;
+  int number = 0;
   if (argc != 2)
     {
       printf("USAGE: monty file\n");
@@ -22,18 +23,34 @@ int main(int argc, char **argv)
       printf("Error: Can't open %s\n", argv[1]);
       exit(EXIT_FAILURE);
     }
-  
-  characters = getline(&line, &size_max, document);
-  if (!characters)
+  while (number < 5)
     {
-      printf("something wrong with the text\n");
-      exit(EXIT_FAILURE);
+      getline(&line, &size_max, document);
+      documentCopy[number] = malloc(sizeof(char) * strlen(line) + 1);
+      if (documentCopy[number] == NULL)
+	{
+	  printf("Error Malloc documentCopy\n");
+	  free(documentCopy[number]);
+	  exit(1);
+	}
+      documentCopy[number] = line;
+      documentCopy[number + 1] = NULL;
+      printf("%s\n", documentCopy[number]);
+      number++;
     }
-  
-  printf("%s\n", line);
   return (0);
 }
 
-char *token(char *string)
+/**
+ * readFile - strtok a file
+ * @string: What is being turned into the token
+ * @delimiter: What to seperate them by
+ * Return: pointer to an array with all the tokens.
+ */
+char *cpline(char *string, char *delimiter)
 {
-  
+  char *copy = malloc(sizeof(char) * strlen(string) + 1), *temp;
+  strcpy(copy, string);
+  temp = strtok(copy, delimiter);
+  return (temp);
+}
